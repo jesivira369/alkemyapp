@@ -3,7 +3,9 @@ import * as Yup from "yup"; // used when validating with a pre-built solution
 import axios from "axios";
 import Swal from "sweetalert2";
 
-const ValidatedLoginForm = () => (
+
+const ValidatedLoginForm = ({user, setUser}) => (
+
   <Formik
     initialValues={{ email: "", password: "" }}
     onSubmit={(values, { setSubmitting }) => {
@@ -38,8 +40,10 @@ const ValidatedLoginForm = () => (
       axios
         .post(url, { email: values.email, password: values.password })
         .then((response) => {
-          console.log(response.data);
           localStorage.setItem('myToken', response.data.token);
+          console.log(user)
+          console.log("usamos ahora el setUser")
+          setUser(false)
         })
         .catch(({ response }) => {
           console.log(response);
